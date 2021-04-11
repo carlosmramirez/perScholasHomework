@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="part1AndPart2.css">
+    
+  </head>
+
+  <body>
+    <script>
+      let currentColor = 0;
+      function changeColor() {
+        const colorList = ["blue", "red", "orange", "yellow", "aqua"];
+        const circles = document.getElementsByClassName("grid-item");
+
+        for (let i = 0; i < circles.length; i++) {
+          circles[i].style.backgroundColor = colorList[currentColor];
+        }
+        if (currentColor === colorList.length - 1) {
+          currentColor = 0;
+        } else {
+          currentColor++
+        }
+      }
+    </script>
+    <div class="grid-container" onclick="changeColor()">
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+      <div class="grid-item"></div>
+    </div>
+
+    <script>
+      
+    </script>
+  </body>
+</html>

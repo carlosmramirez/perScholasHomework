@@ -1,0 +1,25 @@
+body {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  background-image: url('nyc.jpeg');
+}
+
+.grid-container {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.grid-item {
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+  background-color: aqua;
+}
+
+.grid-item:hover {
+  opacity: 0%;
+}

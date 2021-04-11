@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="clock.css">
+    
+  </head>
+  <body>
+    <script>
+      function handleSubmit() {
+        const minLimit = parseInt(document.getElementsByClassName("input")[0].value);
+        const secLimit = parseInt(document.getElementsByClassName("input")[1].value);
+
+        if (minLimit || secLimit) {
+          document.getElementById("txtTempo").value = minLimit + secLimit / 60;
+        }
+      }
+    </script>
+    <div id="container">
+      <div id="controlos">
+        <input id="txtTempo" type="text" value="10" size="4" maxlength="4">
+        <button id="btnStart" onclick="handleSubmit()">Start</button>
+      </div>
+
+      <div id="clock" class="blue">
+        <input type="text" class="input" id="minutes" value="00" /> : 
+        <input type="text" class="input" id="seconds" value="00" />
+      </div>
+    </div>
+    
+    <script>
+      let enterMin = document.getElementById("minutes")
+      enterMin.addEventListener("keyup", (e) => {
+        e.preventDefault();
+        if (e.key === "Enter") {
+          document.getElementById("seconds").focus();
+        }
+      })
+
+      let enterSec = document.getElementById("seconds")
+      enterSec.addEventListener("keyup", (e) => {
+        const minLimit = parseInt(document.getElementsByClassName("input")[0].value);
+        const secLimit = parseInt(document.getElementsByClassName("input")[1].value);
+
+        e.preventDefault();
+        if (e.key === "Enter") {
+          if (!minLimit) {
+            document.getElementById("txtTempo").value = secLimit / 60;
+          } else if (!secLimit) {
+            document.getElementById("txtTempo").value = minLimit;
+          } else {
+            document.getElementById("txtTempo").value = minLimit + secLimit / 60;
+          }
+        }
+      })
+    </script>
+    <script src="clock.js"></script>
+  </body>
+</html>
+

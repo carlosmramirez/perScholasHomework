@@ -1,0 +1,33 @@
+html, body, #container {
+  width: 100%;
+  height: 100%;
+}
+
+#clock {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  /* background-color: blue; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.input {
+  width: 16%;
+  height: 15%;
+  background-color: #0781D4;
+  border: none;
+  font-size: 2rem;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.blue {
+  background-color: #0781D4;
+}
+
+.red {
+  background-color: red;
+}
+
