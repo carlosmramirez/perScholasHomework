@@ -5,29 +5,24 @@
   </head>
   <body>
     <div id="container">
-      <p id="user-input"></p>
+      <p id="color-change"></p>
       <button onclick="changeColor()">Change Color</button>
       <p id="string"></p>
       <p id="reverse-string"></p>
       <p id="num-args"></p>
       <p id="longest-word"></p>
       <p id="long-word-array"></p>
-
     </div>
 
     <script>
-      let userInput = 4;
-      let userName = " Ca rlos "
       let strToReverse = "Carlos Ramirez"
       let stringArray = ["Carlos", "Ramirez", "Codes"]
       
-      document.getElementById("user-input").innerHTML = "The user input is: " + userInput;
+      document.getElementById("color-change").innerHTML = "Change to blue!";
       document.getElementById("reverse-string").innerHTML = reverseString(strToReverse);
       document.getElementById("num-args").innerHTML = "You passed " + numOfArgs(1,2,3,4) + " arguments.";
       document.getElementById("longest-word").innerHTML = findLongestWord(stringArray);
       document.getElementById("long-word-array").innerHTML = filterLongWords(stringArray, 5);
-
-
     </script>
   </body>
 </html>
