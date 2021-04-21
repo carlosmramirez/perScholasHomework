@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+  </head>
+  <body>
+    <h3>Square 1</h3>
+    <div id='area'></div>
+    <div id='total-sides'></div>
+
+    <h3>Square 2</h3>
+    <div id='area2'></div>
+    <div id='total-sides2'></div>
+
+    <h3>Square 3</h3>
+    <div id='area3'></div>
+    <div id='total-sides3'></div>
+
+    <script>
+      class Square {
+        constructor(length, numOfSides) {
+          this.length = length;
+          this.numOfSides = numOfSides
+        }
+
+        calcArea() {
+          return this.length ** 2;
+        }
+
+        displaySides() {
+          return this.numOfSides;
+        }
+      }
+
+      const mySquare = new Square(3, 4);
+      const mySquare2 = new Square(6, 4);
+      const mySquare3 = new Square(8, 4);
+
+      document.getElementById('area').innerHTML = "Area: " + mySquare.calcArea().toFixed(2);
+      document.getElementById('total-sides').innerHTML = "Sides: " + mySquare.displaySides();
+
+      document.getElementById('area2').innerHTML = "Area: " + mySquare2.calcArea().toFixed(2);
+      document.getElementById('total-sides2').innerHTML = "Sides: " + mySquare2.displaySides();
+
+      document.getElementById('area3').innerHTML = "Area: " + mySquare3.calcArea().toFixed(2);
+      document.getElementById('total-sides3').innerHTML = "Sides: " + mySquare3.displaySides();
+    </script>
+  </body>
+</html>

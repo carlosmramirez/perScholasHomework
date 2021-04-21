@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+  </head>
+  <body>
+    <h3>Circle 1</h3>
+    <div id='area1'></div>
+    <div id='total-sides1'></div>
+
+    <h3>Circle 2</h3>
+    <div id='area2'></div>
+    <div id='total-sides2'></div>
+
+    <h3>Circle 3</h3>
+    <div id='area3'></div>
+    <div id='total-sides3'></div>
+
+    <script>
+      class Circle {
+        constructor(radius, numOfSides) {
+          this.radius = radius;
+          this.numOfSides = numOfSides
+        }
+
+        calcArea() {
+          return Math.PI * (this.radius ** 2);
+        }
+
+        displaySides() {
+          return this.numOfSides;
+        }
+      }
+
+      const myCircle = new Circle(3, 1);
+      const myCircle2 = new Circle(5, 1);
+      const myCircle3 = new Circle(7, 1);
+
+      document.getElementById('area1').innerHTML = "Area: " + myCircle.calcArea().toFixed(2);
+      document.getElementById('total-sides1').innerHTML = "Sides: " + myCircle.displaySides();
+
+      document.getElementById('area2').innerHTML = "Area: " + myCircle2.calcArea().toFixed(2);
+      document.getElementById('total-sides2').innerHTML = "Sides: " + myCircle2.displaySides();
+
+      document.getElementById('area3').innerHTML = "Area: " + myCircle3.calcArea().toFixed(2);
+      document.getElementById('total-sides3').innerHTML = "Sides: " + myCircle3.displaySides();
+    </script>
+  </body>
+</html>

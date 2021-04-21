@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+  <h3>Rectangle 1</h3>
+  <div id='area'></div>
+  <div id='total-sides'></div>
+
+  <h3>Rectangle 2</h3>
+  <div id='area2'></div>
+  <div id='total-sides2'></div>
+
+  <h3>Rectangle 3</h3>
+  <div id='area3'></div>
+  <div id='total-sides3'></div>
+
+  <script>
+    class Rectangle {
+      constructor(length, width, numOfSides) {
+        this.length = length;
+        this.width = width;
+        this.numOfSides = numOfSides;
+      }
+
+      calcArea() {
+        return this.length * this.width;
+      }
+
+      displaySides() {
+        return this.numOfSides;
+      }
+    }
+
+    const myRectangle = new Rectangle(3, 5, 4);
+    const myRectangle2 = new Rectangle(6, 8, 4);
+    const myRectangle3 = new Rectangle(7, 2, 4);
+
+    document.getElementById('area').innerHTML = "Area: " + myRectangle.calcArea().toFixed(2);
+    document.getElementById('total-sides').innerHTML = "Sides: " + myRectangle.displaySides();
+
+    document.getElementById('area2').innerHTML = "Area: " + myRectangle2.calcArea().toFixed(2);
+    document.getElementById('total-sides2').innerHTML = "Sides: " + myRectangle2.displaySides();
+
+    document.getElementById('area3').innerHTML = "Area: " + myRectangle3.calcArea().toFixed(2);
+    document.getElementById('total-sides3').innerHTML = "Sides: " + myRectangle3.displaySides();
+  </script>
+</body>
+
+</html>
