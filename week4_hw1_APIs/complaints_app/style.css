@@ -1,0 +1,80 @@
+body, html {
+  height: 100%;
+  width: 100%;
+  background-color: rgb(226, 226, 226);
+}
+
+.title {
+  font-size: 30px;
+  margin: 10px;
+  text-align: center;
+}
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header input {
+  margin: 5px;
+  height: 40px;
+  box-sizing: border-box;
+  outline: none;
+  border-width: 1px;
+  border-radius: 5px;
+}
+
+.header input:focus {
+  outline: none;
+  border: solid 1px orange;
+}
+
+.button {
+  height: 40px;
+  width: 100px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+
+}
+
+.button:hover {
+  background-color: orange;
+}
+
+#search-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.row-div {
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.complaint-div {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nypdResponse {
+  height: 30px;
+  background-color: brown;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.nypdResponse:hover {
+  background-color: orange;
+}
+
+

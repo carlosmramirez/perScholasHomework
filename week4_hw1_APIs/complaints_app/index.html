@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="app.js"></script>
+    <link type="text/css" rel="stylesheet "href="style.css">
+  </head>
+  <body>
+    <script>
+      const getNYPDResponse = (resDescription, div) => {
+        const resolutionPara = div.querySelector('.resolution');
+        if (!resolutionPara) {
+          const resNYPD = document.createElement('p');
+          resNYPD.className = 'resolution';
+          resNYPD.textContent = resDescription;
+          div.append(resNYPD);
+        } else {
+          resolutionPara.parentNode.removeChild(resolutionPara);
+        }
+      }
+
+      const getData = async (getDataFn) => {
+        document.getElementById('search-result').innerHTML = ''; // clear HTML between borough clicks
+
+        const numComplaints = document.getElementById('num-complaints').value;
+        const response = numComplaints ? await getDataFn(numComplaints) : await getDataFn();
+        response.forEach(item => {
+          const rowDiv = document.createElement('div');
+          rowDiv.setAttribute('class', 'row-div');
+          document.getElementById('search-result').append(rowDiv);
+          
+          const complaintDiv = document.createElement('div');
+          complaintDiv.className = 'complaint-div';
+          
+          const newPara = document.createElement('p');
+          newPara.textContent = item.descriptor;
+          complaintDiv.append(newPara);
+          
+          const newButton = document.createElement('button')
+          newButton.className = 'nypdResponse';
+          newButton.onclick = () => getNYPDResponse(item.resolution_description, rowDiv);
+          newButton.innerHTML = "WHAT DID THE POLICE DO?";
+          complaintDiv.append(newButton)
+          rowDiv.append(complaintDiv);
+        })
+      }
+    </script>
+    <div class="title">
+      WHERE CAN WE CAUSE TROUBLE TODAY?
+    </div>
+    <div class="header">
+      <input type="text" id="num-complaints" name="complaints" placeholder="# OF COMPLAINTS">
+      <button 
+        class="button" 
+        id="brooklyn" 
+        onclick="getData(getBrooklyn)">
+        BROOKLYN
+      </button>
+      <button 
+        class="button"
+        onclick="getData(getManhattan)">
+        MANHATTAN
+      </button>
+      <button 
+        class="button"
+        onclick="getData(getQueens)">
+        QUEENS
+      </button>
+      <button 
+        class="button"
+        onclick="getData(getBronx)">
+        BRONX
+      </button>
+      <button 
+        class="button"
+        onclick="getData(getStatenIsland)">
+        STATEN ISLAND
+      </button>
+    </div>
+
+    <div id="search-result">
+    </div>
+    
+  </body>
+</html>
