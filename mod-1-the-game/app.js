@@ -28,8 +28,21 @@ class Deck {
       }
     }
   }
+
+  shuffle() {
+    for (let i = 0; i < 1000; i++) {
+      let index1 = Math.floor(Math.random() * this.deck.length);
+      let index2 = Math.floor(Math.random() * this.deck.length);
+      let temp = this.deck[index1];
+
+      this.deck[index1] = this.deck[index2];
+      this.deck[index2] = temp;
+    } 
+  }
 }
 
 const deck1 = new Deck(suits, values);
 deck1.getDeck();
+deck1.shuffle();
+console.log(deck1.deck)
 
