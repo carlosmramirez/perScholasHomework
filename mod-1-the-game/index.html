@@ -12,30 +12,34 @@
         This is the player div
         <div class='hand'></div>
         <div class='score' id='player-score'></div>
-        <button onclick='handleHitMe()'>Hit Me!</button>
-        <button onclick='handleStand()'>Stand</button>
-        <button>Double Down</button>
-        <button>Split</button>
-        <button>Surrender</button>
+        <button class='user-buttons' onclick="handleHitMe()">Hit Me!</button>
+        <button class='user-buttons'onclick="handleStand()"">Stand</button>
+        <!-- <button class='user-buttons'>Double Down</button>
+        <button class='user-buttons'>Split</button>
+        <button class='user-buttons'>Surrender</button> -->
       </div>
       <div id='dealer'>
         This is the dealer div
         <div class='hand'></div>
         <div class='score' id='dealer-score'></div>
       </div>
-
+      <div id='winner'></div>
+    </div>
       <script>
+        // instantiate new deck
         const blackJack = new BlackJack();
-
+        blackJack.deck.getDeck();
+        blackJack.deck.shuffle();
+        
         const startGame = () => {
-          blackJack.deck.getDeck();
-          blackJack.deck.shuffle();
+          blackJack.reset();
+          disableButtons();
+          document.getElementById('dealer-score').innerHTML = '';
+          
           blackJack.dealTwo();
           blackJack.getScores();
           displayCards();
           displayPlayerScore();
-
-          console.log(blackJack.playerScore, blackJack.playerHand)
         }
 
         const displayCards = () => {
@@ -61,6 +65,20 @@
           }
         }
 
+        const disableButtons = () => {
+          const userButtons = document.getElementsByClassName('user-buttons');
+          if (blackJack.playerBust || blackJack.dealerBust) {
+            Object.values(userButtons).forEach(button => {
+              button.disabled = blackJack.playerBust || blackJack.dealerBust;
+            });
+            displayDealerScore();
+          } else {
+            Object.values(userButtons).forEach(button => {
+              button.disabled = blackJack.playerBust || blackJack.dealerBust;
+            });
+          }
+        }
+
         // const displayNewCard = () => {
         //   const newCardDiv = document.createElement('div');
         //   const newCard = document.createTextNode(JSON.stringify(blackJack.playerHand[blackJack.playerHand.length -1]));
@@ -82,20 +100,19 @@
           document.getElementById('dealer-score').appendChild(dealerScore);
         }
 
-        const handleHitMe = () => {
+        const handleHitMe = () => { 
           blackJack.hitMe();
           displayCards();
           displayPlayerScore();
-          displayDealerScore();
           blackJack.isBust();
+          disableButtons();
         }
 
         const handleStand = () => {
           blackJack.stand();
+          displayDealerScore();
         }
 
-
       </script>
-    </div>
   </body>
 </html>
