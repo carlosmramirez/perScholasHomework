@@ -39,10 +39,43 @@ class Deck {
       this.deck[index2] = temp;
     } 
   }
+
+  deal() {
+    return this.deck.pop();
+  }
 }
 
-const deck1 = new Deck(suits, values);
-deck1.getDeck();
-deck1.shuffle();
-console.log(deck1.deck)
+class BlackJack {
+  constructor() {
+    this.deck = new Deck(suits, values);
+    this.playerHand = [];
+    this.dealerHand = []
+    this.playerScore = 0;
+    this.dealerScore = 0;
+  }
+
+  dealTwo() {
+    for (let i = 0; i < 2; i++) {
+      const card = this.deck.deal()
+      const newCard = document.createElement('div');
+      const playerHand = document.getElementsByClassName('hand')[0];
+    
+      this.playerHand.push(card);
+      newCard.innerHTML = JSON.stringify(card);
+      playerHand.appendChild(newCard);
+    }
+
+    for (let i = 0; i < 2; i++) {
+      const card = this.deck.deal();
+      const newCard = document.createElement('div');
+      const playerHand = document.getElementsByClassName('hand')[1];
+    
+      this.dealerHand.push(card);
+      newCard.innerHTML = JSON.stringify(card);
+      playerHand.appendChild(newCard);
+    }
+  }
+}
+
+
 

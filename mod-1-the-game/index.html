@@ -9,10 +9,8 @@
     <div id='game-container'>
       <div id='player'>
         This is the player div
-        <div class='hand'>
-          CURRENT HAND
-        </div>
-        <button>Hit Me!</button>
+        <div class='hand'></div>
+        <button onclick='deck.hitMe()'>Hit Me!</button>
         <button>Stand</button>
         <button>Double Down</button>
         <button>Split</button>
@@ -20,7 +18,17 @@
       </div>
       <div id='dealer'>
         This is the dealer div
+        <div class='hand'></div>
       </div>
+
+      <script>
+        // initialize game
+        const blackJack = new BlackJack();
+        blackJack.deck.getDeck();
+        blackJack.deck.shuffle();
+        blackJack.dealTwo();
+        console.log(blackJack.playerScore, blackJack.playerHand)
+      </script>
     </div>
   </body>
 </html>
