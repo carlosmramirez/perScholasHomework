@@ -49,7 +49,9 @@ class BlackJack {
   constructor() {
     this.deck = new Deck(suits, values);
     this.playerHand = [];
-    this.dealerHand = []
+    this.dealerHand = [];
+    this.isDealerStand = false;
+    this.isPlayerStand = false;
     this.playerScore = 0;
     this.dealerScore = 0;
   }
@@ -57,22 +59,58 @@ class BlackJack {
   dealTwo() {
     for (let i = 0; i < 2; i++) {
       const card = this.deck.deal()
-      const newCard = document.createElement('div');
-      const playerHand = document.getElementsByClassName('hand')[0];
-    
       this.playerHand.push(card);
-      newCard.innerHTML = JSON.stringify(card);
-      playerHand.appendChild(newCard);
     }
 
     for (let i = 0; i < 2; i++) {
       const card = this.deck.deal();
-      const newCard = document.createElement('div');
-      const playerHand = document.getElementsByClassName('hand')[1];
+      this.dealerHand.push(card);   
+    }
+  }
+
+  getScores() {
+    this.playerScore = this.playerHand.reduce((acc,val) => {
+      return acc + val.weight;
+    }, 0);
+
+    this.dealerScore = this.dealerHand.reduce((acc,val) => {
+      return acc + val.weight;
+    }, 0);
+  }
+
+  hitMe() {
+    this.playerHand.push(this.deck.deal());
     
-      this.dealerHand.push(card);
-      newCard.innerHTML = JSON.stringify(card);
-      playerHand.appendChild(newCard);
+    if (this.dealerScore > 21) {
+      alert("Dealer Bust")
+    } else if (this.dealerScore < 17) {
+      this.dealerHand.push(this.deck.deal());
+    } else {
+      this.isDealerStand = true;
+    }
+
+    this.getScores();
+  }
+
+  isBust() {
+    if (this.playerScore > 21) {
+      alert('Player Bust');
+    }
+
+    if (this.dealerScore > 21) {
+      alert('Dealer Bust');
+    }
+  }
+
+  stand() {
+    this.isBust();
+    console.log(this.playerScore + ' ' + this.dealerScore)
+    if (this.playerScore > this.dealerScore) {
+      alert("User Wins!");
+    } else if (this.playerScore = this.dealerScore) {
+      alert("Draw!");
+    } else {
+      alert("Dealer Wins!");
     }
   }
 }

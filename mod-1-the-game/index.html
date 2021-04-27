@@ -7,11 +7,13 @@
   </head>
   <body>
     <div id='game-container'>
+      <button onclick='startGame()'>Start Game</button>
       <div id='player'>
         This is the player div
         <div class='hand'></div>
-        <button onclick='deck.hitMe()'>Hit Me!</button>
-        <button>Stand</button>
+        <div class='score' id='player-score'></div>
+        <button onclick='handleHitMe()'>Hit Me!</button>
+        <button onclick='handleStand()'>Stand</button>
         <button>Double Down</button>
         <button>Split</button>
         <button>Surrender</button>
@@ -19,15 +21,80 @@
       <div id='dealer'>
         This is the dealer div
         <div class='hand'></div>
+        <div class='score' id='dealer-score'></div>
       </div>
 
       <script>
-        // initialize game
         const blackJack = new BlackJack();
-        blackJack.deck.getDeck();
-        blackJack.deck.shuffle();
-        blackJack.dealTwo();
-        console.log(blackJack.playerScore, blackJack.playerHand)
+
+        const startGame = () => {
+          blackJack.deck.getDeck();
+          blackJack.deck.shuffle();
+          blackJack.dealTwo();
+          blackJack.getScores();
+          displayCards();
+          displayPlayerScore();
+
+          console.log(blackJack.playerScore, blackJack.playerHand)
+        }
+
+        const displayCards = () => {
+          document.getElementsByClassName('hand')[0].innerHTML = '';
+          document.getElementsByClassName('hand')[1].innerHTML = '';
+
+          for(let i = 0; i < blackJack.playerHand.length; i++) {
+            const hand = document.getElementsByClassName('hand')[0];
+            const newCardDiv = document.createElement('div');
+            const newCard = document.createTextNode(JSON.stringify(blackJack.playerHand[i]));
+
+            newCardDiv.appendChild(newCard);
+            hand.appendChild(newCardDiv);
+          }
+
+          for(let i = 0; i < blackJack.dealerHand.length; i++) {
+            const newCardDiv = document.createElement('div');
+            const newCard = document.createTextNode(JSON.stringify(blackJack.dealerHand[i]));
+            const hand = document.getElementsByClassName('hand')[1];
+
+            newCardDiv.appendChild(newCard);
+            hand.appendChild(newCardDiv);
+          }
+        }
+
+        // const displayNewCard = () => {
+        //   const newCardDiv = document.createElement('div');
+        //   const newCard = document.createTextNode(JSON.stringify(blackJack.playerHand[blackJack.playerHand.length -1]));
+        //   const hand = document.getElementsByClassName('hand')[1];
+
+        //   newCardDiv.appendChild(newCard);
+        //   hand.appendChild(newCardDiv);
+        // }
+        
+        const displayPlayerScore = () => {
+          document.getElementById('player-score').innerHTML = '';
+          const playerScore = document.createTextNode(blackJack.playerScore);
+          document.getElementById('player-score').appendChild(playerScore);
+        }
+
+        const displayDealerScore = () => {
+          document.getElementById('dealer-score').innerHTML = '';
+          const dealerScore = document.createTextNode(blackJack.dealerScore);
+          document.getElementById('dealer-score').appendChild(dealerScore);
+        }
+
+        const handleHitMe = () => {
+          blackJack.hitMe();
+          displayCards();
+          displayPlayerScore();
+          displayDealerScore();
+          blackJack.isBust();
+        }
+
+        const handleStand = () => {
+          blackJack.stand();
+        }
+
+
       </script>
     </div>
   </body>
