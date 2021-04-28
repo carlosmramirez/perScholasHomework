@@ -13,7 +13,7 @@
         <div class='hand'></div>
         <div class='score' id='player-score'></div>
         <button class='user-buttons' onclick="handleHitMe()">Hit Me!</button>
-        <button class='user-buttons'onclick="handleStand()"">Stand</button>
+        <button class='user-buttons' onclick="handleStand()">Stand</button>
         <!-- <button class='user-buttons'>Double Down</button>
         <button class='user-buttons'>Split</button>
         <button class='user-buttons'>Surrender</button> -->
@@ -67,14 +67,14 @@
 
         const disableButtons = () => {
           const userButtons = document.getElementsByClassName('user-buttons');
-          if (blackJack.playerBust || blackJack.dealerBust) {
+          if (blackJack.playerBust || blackJack.dealerBust || blackJack.isPlayerStand) {
             Object.values(userButtons).forEach(button => {
-              button.disabled = blackJack.playerBust || blackJack.dealerBust;
+              button.disabled = blackJack.playerBust || blackJack.dealerBust || blackJack.isPlayerStand;
             });
             displayDealerScore();
           } else {
             Object.values(userButtons).forEach(button => {
-              button.disabled = blackJack.playerBust || blackJack.dealerBust;
+              button.disabled = blackJack.playerBust || blackJack.dealerBust || blackJack.isPlayerStand;
             });
           }
         }
@@ -111,6 +111,7 @@
         const handleStand = () => {
           blackJack.stand();
           displayDealerScore();
+          disableButtons();
         }
 
       </script>

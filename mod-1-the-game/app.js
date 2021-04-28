@@ -50,12 +50,24 @@ class BlackJack {
     this.deck = new Deck(suits, values);
     this.playerHand = [];
     this.dealerHand = [];
+    this.isUserWinner = false;
+    this.isDraw = false;
     this.isDealerStand = false;
     this.isPlayerStand = false;
     this.playerBust = false;
     this.dealerBust= false;
     this.playerScore = 0;
     this.dealerScore = 0;
+  }
+
+  getScores() {
+    this.playerScore = this.playerHand.reduce((acc,val) => {
+      return acc + val.weight;
+    }, 0);
+
+    this.dealerScore = this.dealerHand.reduce((acc,val) => {
+      return acc + val.weight;
+    }, 0);
   }
 
   dealTwo() {
@@ -68,16 +80,6 @@ class BlackJack {
       const card = this.deck.deal();
       this.dealerHand.push(card);   
     }
-  }
-
-  getScores() {
-    this.playerScore = this.playerHand.reduce((acc,val) => {
-      return acc + val.weight;
-    }, 0);
-
-    this.dealerScore = this.dealerHand.reduce((acc,val) => {
-      return acc + val.weight;
-    }, 0);
   }
 
   hitMe() {
@@ -96,16 +98,9 @@ class BlackJack {
   }
 
   stand() {
+    this.isPlayerStand = true;
     if (!this.playerBust || !this.playerBust) {
-      if (this.playerScore > this.dealerScore) {
-        alert("User Wins!");
-      } else if (this.playerScore === this.dealerScore) {
-        alert("Draw!");
-      } else {
-        alert("Dealer Wins!");
-      }
-    } else {
-      alert('New Hand')
+      this.determineWinner();
     }
   }
   
@@ -118,6 +113,19 @@ class BlackJack {
     if (this.dealerScore > 21 && !this.playerBust) {
       alert('Dealer Bust');
       this.dealerBust = true;
+    }
+  }
+
+  determineWinner() {
+    if (this.playerScore > this.dealerScore) {
+      this.isUserWinner = true;
+      alert('Player Wins');
+    } else if (this.playerScore === this.dealerScore) {
+      this.isDraw = true;
+      alert('draw')
+    } else {
+      this.isUserWinner = false;
+      alert('Dealer Wins');
     }
   }
 
