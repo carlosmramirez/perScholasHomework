@@ -1,4 +1,4 @@
-const suits = ['spades', 'clubs', 'hearts', 'diamonds'];
+const suits = ['S', 'C', 'H', 'D'];
 const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'K', 'Q', 'A'];
 
 class Deck {
@@ -78,54 +78,59 @@ class BlackJack {
 
     for (let i = 0; i < 2; i++) {
       const card = this.deck.deal();
-      this.dealerHand.push(card);   
+      if (this.dealerHand.length == 0) {
+        card.isFirstCard = true;
+        this.dealerHand.push(card);
+      } else {
+        this.dealerHand.push(card);   
+      }
     }
   }
 
   hitMe() {
     this.playerHand.push(this.deck.deal());
   
-    if (this.dealerScore > 21) {
-      alert("Dealer Bust");
-      this.dealerBust = true;
-    } else if (this.dealerScore < 17) {
-      this.dealerHand.push(this.deck.deal());
-    } else {
-      this.isDealerStand = true;
-    }
-
     this.getScores();
   }
 
   stand() {
     this.isPlayerStand = true;
     if (!this.playerBust || !this.playerBust) {
+      delete this.dealerHand[0].isFirstCard;
+      this.finishDealerHand();
       this.determineWinner();
     }
+  }
+
+  finishDealerHand() {
+    while (this.dealerScore < 17) {
+      this.dealerHand.push(this.deck.deal());
+      this.getScores();
+    } 
+    this.isDealerStand = true;
   }
   
   isBust() {
     if (this.playerScore > 21) {
-      alert('Player Bust');
+      delete this.dealerHand[0].isFirstCard;
       this.playerBust = true;
+      this.isUserWinner = false;
     }
 
     if (this.dealerScore > 21 && !this.playerBust) {
-      alert('Dealer Bust');
+      delete this.dealerHand[0].isFirstCard;
       this.dealerBust = true;
+      this.isUserWinner = true;
     }
   }
 
   determineWinner() {
     if (this.playerScore > this.dealerScore) {
       this.isUserWinner = true;
-      alert('Player Wins');
     } else if (this.playerScore === this.dealerScore) {
       this.isDraw = true;
-      alert('draw')
     } else {
       this.isUserWinner = false;
-      alert('Dealer Wins');
     }
   }
 

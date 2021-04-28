@@ -2,39 +2,49 @@
 <html>
   <head>
     <link rel="stylesheet" href="style.css">
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="./cards/cards.css" rel="stylesheet" type="text/css">
+
     <script src='app.js'></script>
     <title>Blackjack by Carlos R.</title>
   </head>
   <body>
-    <div id='game-container'>
-      <button onclick='startGame()'>Start Game</button>
-      <div id='player'>
-        This is the player div
-        <div class='hand'></div>
-        <div class='score' id='player-score'></div>
-        <button class='user-buttons' onclick="handleHitMe()">Hit Me!</button>
-        <button class='user-buttons' onclick="handleStand()">Stand</button>
-        <!-- <button class='user-buttons'>Double Down</button>
-        <button class='user-buttons'>Split</button>
-        <button class='user-buttons'>Surrender</button> -->
-      </div>
-      <div id='dealer'>
-        This is the dealer div
-        <div class='hand'></div>
-        <div class='score' id='dealer-score'></div>
+    <div class='game-container'>
+      <button id='start-button' onclick='startGame()'>Start Game</button>
+      <div class='game-table'>
+        <div id='player'>
+          <div class='header'>Player</div>
+          <div class='hand hhand-compact'></div>
+          <div class='score' id='player-score'></div>
+          <button class='user-buttons' onclick="handleHitMe()" disabled=true>Hit Me!</button>
+          <button class='user-buttons' onclick="handleStand()" disabled=true>Stand</button>
+        </div>
+        <div id='dealer'>
+          <div class='header'>Dealer</div>
+          <div class='hand hhand-compact'></div>
+          <div class='score' id='dealer-score'></div>
+        </div>
       </div>
       <div id='winner'></div>
+      <div class='round-scoreboard'>
+        <div id='player-scoreboard'>Player Score: 0</div>
+        <div id='dealer-scoreboard'>Dealer Score: 0</div>
+      </div>
     </div>
       <script>
-        // instantiate new deck
+        let playerScoreBoard = 0;
+        let dealerScoreBoard = 0;
         const blackJack = new BlackJack();
         blackJack.deck.getDeck();
         blackJack.deck.shuffle();
         
+
         const startGame = () => {
           blackJack.reset();
-          disableButtons();
+          disableAndEnableButtons();
           document.getElementById('dealer-score').innerHTML = '';
+          document.getElementById('winner').innerHTML = '';
+          document.getElementById('start-button').innerHTML = 'Next Round';
           
           blackJack.dealTwo();
           blackJack.getScores();
@@ -42,30 +52,28 @@
           displayPlayerScore();
         }
 
+        const getCardImages = (hand, cards) => {
+          for(let i = 0; i < cards.length; i++) {
+            const newCardImg = document.createElement('img');
+            newCardImg.className = 'card';
+            if (cards[i].isFirstCard) {
+              newCardImg.src = `./cards/cards/BLUE_BACK.svg`;
+            } else {
+              newCardImg.src = `./cards/cards/${cards[i].value + cards[i].suit}.svg`;
+            }
+            hand.appendChild(newCardImg);
+          }
+        }
+
         const displayCards = () => {
           document.getElementsByClassName('hand')[0].innerHTML = '';
           document.getElementsByClassName('hand')[1].innerHTML = '';
 
-          for(let i = 0; i < blackJack.playerHand.length; i++) {
-            const hand = document.getElementsByClassName('hand')[0];
-            const newCardDiv = document.createElement('div');
-            const newCard = document.createTextNode(JSON.stringify(blackJack.playerHand[i]));
-
-            newCardDiv.appendChild(newCard);
-            hand.appendChild(newCardDiv);
-          }
-
-          for(let i = 0; i < blackJack.dealerHand.length; i++) {
-            const newCardDiv = document.createElement('div');
-            const newCard = document.createTextNode(JSON.stringify(blackJack.dealerHand[i]));
-            const hand = document.getElementsByClassName('hand')[1];
-
-            newCardDiv.appendChild(newCard);
-            hand.appendChild(newCardDiv);
-          }
+          getCardImages(document.getElementsByClassName('hand')[0], blackJack.playerHand);
+          getCardImages(document.getElementsByClassName('hand')[1], blackJack.dealerHand);
         }
 
-        const disableButtons = () => {
+        const disableAndEnableButtons = () => {
           const userButtons = document.getElementsByClassName('user-buttons');
           if (blackJack.playerBust || blackJack.dealerBust || blackJack.isPlayerStand) {
             Object.values(userButtons).forEach(button => {
@@ -78,15 +86,6 @@
             });
           }
         }
-
-        // const displayNewCard = () => {
-        //   const newCardDiv = document.createElement('div');
-        //   const newCard = document.createTextNode(JSON.stringify(blackJack.playerHand[blackJack.playerHand.length -1]));
-        //   const hand = document.getElementsByClassName('hand')[1];
-
-        //   newCardDiv.appendChild(newCard);
-        //   hand.appendChild(newCardDiv);
-        // }
         
         const displayPlayerScore = () => {
           document.getElementById('player-score').innerHTML = '';
@@ -100,20 +99,49 @@
           document.getElementById('dealer-score').appendChild(dealerScore);
         }
 
+        const displayWinner = () => {
+          if(blackJack.playerBust || blackJack.dealerBust || blackJack.isPlayerStand) {
+            if (blackJack.isUserWinner) {
+              if (blackJack.dealerBust) {
+                const playerWinsNode = document.createTextNode("Player wins!!! Dealer Busts")
+                document.getElementById('winner').appendChild(playerWinsNode);
+              } else {
+                const playerWinsNode = document.createTextNode("Player wins!!!")
+                document.getElementById('winner').appendChild(playerWinsNode);
+              }
+              playerScoreBoard++;
+              document.getElementById('player-scoreboard').innerHTML = 'Player Score: ' + playerScoreBoard;
+            } else {
+              if (blackJack.playerBust) {
+                const dealerWinsNode = document.createTextNode("Dealer wins... Player Busts");
+                document.getElementById('winner').appendChild(dealerWinsNode);
+              } else {
+                const dealerWinsNode = document.createTextNode("Dealer wins :(");
+                document.getElementById('winner').appendChild(dealerWinsNode);
+              }
+              dealerScoreBoard++;
+              document.getElementById('dealer-scoreboard').innerHTML = 'Dealer Score: ' + dealerScoreBoard;
+            }
+          }
+        }
+
         const handleHitMe = () => { 
           blackJack.hitMe();
+          blackJack.isBust();
           displayCards();
           displayPlayerScore();
-          blackJack.isBust();
-          disableButtons();
+          disableAndEnableButtons();
+          displayWinner();
         }
 
         const handleStand = () => {
           blackJack.stand();
+          blackJack.isBust();
+          displayCards();
           displayDealerScore();
-          disableButtons();
+          disableAndEnableButtons();
+          displayWinner();
         }
-
       </script>
   </body>
 </html>
