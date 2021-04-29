@@ -48,6 +48,7 @@ html, body {
   font-size: 1.5rem;
   width: fit-content;
   margin: 0 auto;
+  color: white;
 }
 
 #player {
@@ -58,4 +59,8 @@ html, body {
 #dealer {
   height: 100%;
   width: 50%;
+}
+
+#winner {
+  color: white;
 }

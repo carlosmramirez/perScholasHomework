@@ -130,7 +130,7 @@ class BlackJack {
       this.isUserWinner = false;
     }
     if (this.playerScore === this.dealerScore) {
-
+      this.isDraw = true;
     }
     if (this.dealerScore > 21 && !this.playerBust) {
       delete this.dealerHand[0].isFirstCard;

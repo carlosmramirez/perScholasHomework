@@ -104,7 +104,10 @@
 
         const displayWinner = () => {
           if(blackJack.playerBust || blackJack.dealerBust || blackJack.isPlayerStand) {
-            if (blackJack.isUserWinner) {
+            if (blackJack.isDraw) {
+              const drawNode = document.createTextNode("Its a draw!!!")
+              document.getElementById('winner').appendChild(drawNode);
+            } else if (blackJack.isUserWinner) {
               if (blackJack.dealerBust) {
                 const playerWinsNode = document.createTextNode("Player wins!!! Dealer Busts")
                 document.getElementById('winner').appendChild(playerWinsNode);
@@ -114,7 +117,7 @@
               }
               playerScoreBoard++;
               document.getElementById('player-scoreboard').innerHTML = 'Player Score: ' + playerScoreBoard;
-            } else if (!blackJack.isUserWinner) {
+            } else {
               if (blackJack.playerBust) {
                 const dealerWinsNode = document.createTextNode("Dealer wins... Player Busts");
                 document.getElementById('winner').appendChild(dealerWinsNode);
@@ -124,10 +127,7 @@
               }
               dealerScoreBoard++;
               document.getElementById('dealer-scoreboard').innerHTML = 'Dealer Score: ' + dealerScoreBoard;
-            } else {
-              const drawNode = document.createTextNode("Its a draw!!!")
-              document.getElementById('winner').appendChild(drawNode);
-            }
+            } 
           }
         }
 
