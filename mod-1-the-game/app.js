@@ -85,11 +85,13 @@ class BlackJack {
 
   dealTwo() {
     for (let i = 0; i < 2; i++) {
-      const card = this.deck.deal()
+      this.replaceDeck();
+      const card = this.deck.deal();
       this.playerHand.push(card);
     }
 
     for (let i = 0; i < 2; i++) {
+      this.replaceDeck();
       const card = this.deck.deal();
       if (this.dealerHand.length == 0) {
         card.isFirstCard = true;
@@ -116,6 +118,8 @@ class BlackJack {
   }
 
   finishDealerHand() {
+    this.replaceDeck();
+    
     while (this.dealerScore < 17) {
       this.dealerHand.push(this.deck.deal());
       this.getScores();
@@ -152,6 +156,8 @@ class BlackJack {
   reset() {
     this.playerHand = [];
     this.dealerHand = [];
+    this.isUserWinner = false;
+    this.isDraw = false;
     this.isDealerStand = false;
     this.isPlayerStand = false;
     this.playerBust = false;
