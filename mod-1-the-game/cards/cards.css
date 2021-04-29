@@ -1,5 +1,5 @@
 img.card {
-	width: 100px;
+	width: 125px;
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -12,7 +12,7 @@ img.card {
  */
 .hand {
 	padding: 0;
-	height: 160px;
+	height: 190px;
 	width:fit-content;
 	margin: 0 auto;
 }

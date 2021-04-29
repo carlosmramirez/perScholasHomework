@@ -43,6 +43,10 @@ class Deck {
   deal() {
     return this.deck.pop();
   }
+
+  isEmpty() {
+    return !this.deck.length;
+  }
 }
 
 class BlackJack {
@@ -58,6 +62,15 @@ class BlackJack {
     this.dealerBust= false;
     this.playerScore = 0;
     this.dealerScore = 0;
+  }
+
+  replaceDeck() {
+    console.log(this.deck.deck.length)
+    if (this.deck.isEmpty()) {
+      this.deck = new Deck(suits, values);
+      this.deck.getDeck();
+      console.log("New Deck")
+    }
   }
 
   getScores() {
@@ -116,7 +129,9 @@ class BlackJack {
       this.playerBust = true;
       this.isUserWinner = false;
     }
+    if (this.playerScore === this.dealerScore) {
 
+    }
     if (this.dealerScore > 21 && !this.playerBust) {
       delete this.dealerHand[0].isFirstCard;
       this.dealerBust = true;

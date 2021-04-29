@@ -7,21 +7,41 @@ html, body {
 .game-container {
   display: flex;
   flex-direction: column;
+  background-image: url('https://pl.sterlingcdn.com/wp-content/uploads/sites/3/2018/07/blackjack-classic-background.jpg');
+  background-size: cover;
   align-items: center;
   justify-content: center;
   height: 100%;
   width: 100%;
 }
 
+.score {
+  margin: auto;
+  width: 35%;
+  background-color: burlywood;
+  text-align: center;
+}
+
 .round-scoreboard {
   display: flex;
   width: 50%;
+  align-items: center;
+  height: 20%;
+  margin-top: 1.2rem;
+  background-color: burlywood;
   justify-content: space-evenly;
+  border-radius: 5px;
 }
 .game-table{
   display: flex;
   width: 75%;
   height: fit-content;
+}
+
+.user-buttons-container {
+  width: fit-content;
+  margin: auto;
+  margin-top: 1rem;
 }
 
 .header {
