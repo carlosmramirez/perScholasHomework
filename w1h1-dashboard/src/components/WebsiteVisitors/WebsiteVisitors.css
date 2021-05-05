@@ -1,0 +1,14 @@
+.website-visitors {
+  height: 100%;
+}
+
+.num-visits {
+  font-size: 1.5rem;
+}
+
+.visitor-graph {
+  background-color: grey;
+  width: 90%;
+  height: 60%;
+  margin: 2rem auto;
+}
