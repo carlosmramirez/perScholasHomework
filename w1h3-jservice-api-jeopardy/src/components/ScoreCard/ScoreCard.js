@@ -1,3 +1,5 @@
+import './ScoreCard.css';
+
 export default function ScoreCard(props) {
   const incrementScore = () => {
     props.setPlayerScore(props.playerScore + props.questionVal); 
@@ -9,11 +11,27 @@ export default function ScoreCard(props) {
     props.setPlayerScore(0);
   }
   return (
-    <div>
-      <h3>Player {props.player} Score: {props.playerScore}</h3>
-      <button onClick={incrementScore} disabled={props.buttonsInactive}>Increment Score</button>
-      <button onClick={decrementScore} disabled={props.buttonsInactive}>Decrement Score</button>
-      <button onClick={resetScore}>Reset Score</button>
+    <div className='scorecard-container'>
+      <h3>Player {props.player} Score: <span>{props.playerScore}</span></h3>
+      <div className='button-container'>
+        <button 
+          className='score-button increment'
+          onClick={incrementScore} 
+          disabled={props.buttonsInactive}>
+          Increment Score
+        </button>
+        <button 
+          className='score-button decrement'
+          onClick={decrementScore} 
+          disabled={props.buttonsInactive}>
+          Decrement Score
+          </button>
+        <button 
+          className='score-button reset'
+          onClick={resetScore}>
+          Reset Score
+        </button>
+      </div>
     </div>
   );
 }
