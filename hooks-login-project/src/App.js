@@ -13,17 +13,15 @@ function App() {
   const userName = 'Carlos';
   const password = 'skateOrCode'
 
-  const handleAuthentication = (e, user, pw) => {
-    e.preventDefault();
+  const handleAuthentication = (user, pw) => {
     setIsLoading(true);
     if (userName === user && password === pw) {
       setIsAuthenticated(true);
-      console.log('here');
     } else {
       setIsAuthenticated(false);
     }
   }
-
+  console.log(isLoading)
   return (
     <div className="App">
       <Form handleAuthentication={handleAuthentication}/>

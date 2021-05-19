@@ -12,10 +12,14 @@ export default function Form(props) {
     setPassword(e.target.value);
   }
 
-  console.log(userName,password)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.handleAuthentication(userName,password);
+  }
+
   return (
     <div>
-      <form onSubmit={(e) => props.handleAuthentication(e,userName,password)}>
+      <form onSubmit={handleSubmit}>
         <label>
           User Name:
             <input 
@@ -27,7 +31,7 @@ export default function Form(props) {
         <label>
           Password:
             <input 
-              type="text" 
+              type="password" 
               value={password}
               onChange={handlePasswordChange}
               />
