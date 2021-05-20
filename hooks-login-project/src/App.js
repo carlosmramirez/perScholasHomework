@@ -27,7 +27,7 @@ function App() {
       <Form handleAuthentication={handleAuthentication}/>
       {
         isAuthenticated &&
-        <Success />
+        <Success userName={userName} />
       }
       {
         !isAuthenticated &&

@@ -1,7 +1,7 @@
 export default function Failure() {
   return (
     <div>
-      <h1>Failure!</h1>
+      <h1>Invalid username or password!</h1>
     </div>
   );
 }

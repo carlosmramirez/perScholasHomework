@@ -1,7 +1,7 @@
-export default function Success() {
+export default function Success(props) {
   return (
     <div>
-      <h1>Success!</h1>
+      <h1>Welcome {props.userName}</h1>
     </div>
   );
 }
