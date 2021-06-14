@@ -12,7 +12,8 @@ public class BasicCalculator {
 		
 		System.out.println("Please provide the 2nd integer");
 		num2 = scan.nextInt();
-				
+		scan.close();
+		
 		return num1 + num2;
 	}
 	
@@ -24,6 +25,7 @@ public class BasicCalculator {
 		
 		System.out.println("Please provide the 2nd integer");
 		num2 = scan.nextInt();
+		scan.close();
 		
 		return num1 - num2;
 	}
@@ -36,6 +38,7 @@ public class BasicCalculator {
 		
 		System.out.println("Please provide the 2nd integer");
 		num2 = scan.nextInt();
+		scan.close();
 		
 		return num1 * num2;
 	}
@@ -48,6 +51,7 @@ public class BasicCalculator {
 		
 		System.out.println("Please provide the 2nd integer");
 		num2 = scan.nextInt();
+		scan.close();
 		
 		quotient = num1 / num2;
 		remainder = num1 % num2;
@@ -69,6 +73,7 @@ public class BasicCalculator {
 				+ "4. Divide \n"
 				+ "5. Exit");
 		userOperationChoice = scan.nextInt();
+		scan.close();
 		
 		return userOperationChoice;
 	}
@@ -76,11 +81,11 @@ public class BasicCalculator {
 	public static void main(String[] args) {
 		int userOperationChoice = getUserChoice();
 		
-		while (userOperationChoice <= 5) {
+		while (userOperationChoice != 5) {
 			switch (userOperationChoice) {
 			  case 1:
 			    System.out.println("Result: " + add());
-			    userOperationChoice = getUserChoice();
+//			    userOperationChoice = getUserChoice();
 			    break;
 			  case 2:
 			    System.out.println("Result: " + subtract());
